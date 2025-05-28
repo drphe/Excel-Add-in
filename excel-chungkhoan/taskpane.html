@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Chứng khoán</title>
+    <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js" type="text/javascript"></script>
+</head>
+<body>
+    <div>
+        <h2>Nhập dữ liệu vào Excel</h2>
+        <label for="dataInput">Dữ liệu cần nhập:</label>
+        <input type="text" id="dataInput" placeholder="Nhập văn bản hoặc số vào đây..." style="width: 95%; padding: 8px; margin-top: 5px;">
+        <button id="insertDataButton" style="margin-top: 10px; padding: 10px 20px; background-color: #0078d4; color: white; border: none; cursor: pointer;">
+            Nhập vào ô
+        </button>
+        <p id="message" style="color: green; margin-top: 10px;"></p>
+    </div>
+    <script type="text/javascript">
+        // Đảm bảo Office đã sẵn sàng trước khi thực hiện các tác vụ
+        Office.onReady(function(info) {
+            if (info.host === Office.HostType.Excel) {
+                document.getElementById('insertDataButton').onclick = insertDataIntoCell;
+            }
+        });
+
+        async function insertDataIntoCell() {
+            try {
+                await Excel.run(async (context) => {
+                    const dataInput = document.getElementById('dataInput');
+                    const dataValue = dataInput.value;
+                    const messageElement = document.getElementById('message');
+
+                    if (!dataValue) {
+                        messageElement.innerText = 'Vui lòng nhập dữ liệu trước khi ấn "Nhập vào ô".';
+                        messageElement.style.color = 'red';
+                        return;
+                    }
+
+                    // Lấy ô được chọn hiện tại
+                    const range = context.workbook.getSelectedRange();
+                    // Đặt giá trị từ ô input vào ô đó
+                    range.values = [[dataValue]];
+
+                    await context.sync();
+                    messageElement.innerText = `Đã nhập "${dataValue}" vào ô thành công!`;
+                    messageElement.style.color = 'green';
+                    dataInput.value = ''; // Xóa nội dung input sau khi nhập
+                });
+            } catch (error) {
+                console.error(error);
+                document.getElementById('message').innerText = 'Lỗi: ' + error.message;
+                document.getElementById('message').style.color = 'red';
+            }
+        }
+    </script>
+</body>
+</html>
