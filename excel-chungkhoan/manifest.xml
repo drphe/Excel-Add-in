@@ -9,7 +9,7 @@
   <ProviderName>CongTyChungKhoanABC</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Chứng khoán"/>
-  <Description DefaultValue="Add-in giúp nhập và xử lý dữ liệu chứng khoán trong Excel."/>
+  <Description DefaultValue="Add-in giúp nhập liệu và xử lý dữ liệu chứng khoán trong Excel."/>
   <IconUrl DefaultValue="https://officedev.github.io/Office-Add-in-samples/Samples/hello-world/excel-hello-world/assets/icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://officedev.github.io/Office-Add-in-samples/Samples/hello-world/excel-hello-world/assets/icon-64.png"/>
   <SupportUrl DefaultValue="https://yourdomain.com/support"/>
